@@ -9,7 +9,7 @@ const SoC = () => {
       <div className="flex flex-col lg:flex-row-reverse items-center lg:items-start justify-between gap-8">
         {/* Right Side: Image Section (Appears at top on mobile) */}
         <div className="lg:w-1/2 flex justify-center">
-        <a href="../Sochome/Sochome.jsx">
+        <a href="./soc" >
           <img
             src={socImage}
             alt="SoC Event"
