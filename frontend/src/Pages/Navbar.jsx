@@ -12,6 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+
   // Firebase Auth Listener
   // useEffect(() => {
   //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -85,7 +86,7 @@ const Navbar = () => {
     if (user) {
       links.push({ name: "Profile", path: `/u/${user.uid}` }); // Show Profile if logged in
     } else {
-      links.push({ name: "Login", path: "/login/auth" }); // Show Login if NOT logged in
+      links.push({ name: "Login", path: "/login" }); // Show Login if NOT logged in
     }
   } else {
     links.push({ name: "Members", path: "/members" }); // Show Members for other pages

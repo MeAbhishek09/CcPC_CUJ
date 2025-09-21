@@ -1,20 +1,3 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-// import Home from './Pages/Home/Home'
-
-// function App() {
-
-//   return (
-//     <>
-//     <Home/>
-//     </>
-//   )
-// }
-
-// export default App
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Sochome from "./Pages/Sochome/Sochome";
@@ -23,6 +6,9 @@ import Blogs from "./Pages/Blogs/Blogs";
 // import Threads from "./Pages/Threads/Threads";
 import Reachus from "./Pages/Reachus/Reachus";
 import Members from "./Pages/Members/Members";
+import RegistrationForm from "./Pages/Registrationform/Registrationform";
+import LoginPage  from "./Pages/Registrationform/Login";
+
 
 function App() {
   return (
@@ -35,15 +21,10 @@ function App() {
         {/* <Route path="/threads" element={<Threads />} /> */}
         <Route path="/reachus" element={<Reachus />} />
         <Route path="/members" element={<Members />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegistrationForm />} />
     </Routes>
   );
 }
 
 export default App;
-    // <Routes>
-    //   <Route path="/" element={<Home />} />
-    //   <Route path="/projects" element={<Projects />} />
-    //   <Route path="/soc" element={<Sochome />} />
-    //   <Route path="/blogs" element={<Blogs />} />
-    //   <Route path="/reachus" element={<Reachus />} />
-    // </Routes>
