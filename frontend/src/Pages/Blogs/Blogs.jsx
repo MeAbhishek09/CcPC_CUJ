@@ -291,7 +291,7 @@ const Blogs = () => {
         {/* Blog List */}
         <div className="space-y-8 text-left">
           {blogsData.map((blog) => (
-            <div key={blog.id} className="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div key={blog.id} className="bg-gray-800/80 p-6 rounded-lg shadow-lg ">
               <h2 className="text-2xl font-semibold text-white mb-4">{blog.title}</h2>
               <span className="text-gray-400 mb-4">{`Date: ${blog.date} | ${blog.attendees} people attended | ${blog.location}`}</span>
               <div className="text-gray-300 mb-4">{blog.content}</div>
