@@ -8,7 +8,7 @@ import Logo from "../../assets/male-avatar.png";
 import Title from "./Component/Title"; 
 import WhyCCPC from "./Component/WhyCCPC"; 
 import SoC from "./Component/Soc";
-// import TEAM from "../components/homecontent/Team"; 
+import TEAM from "./component/Team"; 
 const Home = () => {
 
   const [showNavbar, setShowNavbar] = useState(false);
@@ -52,12 +52,12 @@ const Home = () => {
           </div>
           <div className="bg-blue-500/20 backdrop-blur-md text-s lg:text-xl mt-3 lg:ml-10 rounded-lg text-left p-6 lg:p-10">
             <div>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-gray-300 leading-relaxed font-mono">
                 Code Crafters Programming Club is an exciting initiative designed to ignite a passion for coding within our institution.
                 Our mission is to provide students with a gateway to the dynamic world of programming, offering a supportive platform where assistance and mentorship are readily available.
                 Whether you're just starting or looking to refine your skills, we're here to help you unlock your potential and enhance your coding abilities.
               </p>
-              <p className="text-gray-300 leading-relaxed mt-4">
+              <p className="text-gray-300 leading-relaxed mt-4 font-mono">
                 At Code Crafters, we believe coding is a skill everyone should have the opportunity to learn. Our motto is simple:
                 <span className="font-semibold text-yellow-500"> "Innovate. Collaborate. Elevate."</span>
                 Join us as we provide every student with the right tools, guidance, and community to embark on this exciting journey.
@@ -68,7 +68,7 @@ const Home = () => {
 
         <WhyCCPC />
         <SoC />
-        {/* <TEAM /> */}
+        <TEAM />
         <Footer />
       </div>
     </div>

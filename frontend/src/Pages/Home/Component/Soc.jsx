@@ -1,6 +1,6 @@
 import React from "react";
 // import socImage from "male-avatar.png";
-import socImage from "../../../assets/male-avatar.png";
+import socImage from "../../../assets/soc.png";
 
 const SoC = () => {
   return (
