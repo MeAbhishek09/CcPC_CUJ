@@ -80,9 +80,9 @@ const Login = () => {
 
         <p className="mt-6 text-sm text-center text-white/70">
           Forgot your password?{" "}
-          {/* <Link to="/forgot-password" className="text-blue-400 hover:text-blue-500">
+          <Link to="/forgot-password" className="text-blue-400 hover:text-blue-500">
             Reset it here
-          </Link> */}
+          </Link>
         </p>
       </div>
     </div>

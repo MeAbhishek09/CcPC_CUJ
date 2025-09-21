@@ -8,6 +8,7 @@ import Reachus from "./Pages/Reachus/Reachus";
 import Members from "./Pages/Members/Members";
 import RegistrationForm from "./Pages/Registrationform/Registrationform";
 import LoginPage  from "./Pages/Registrationform/Login";
+import Profile from "./Pages/Members/Profile";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/members" element={<Members />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationForm />} />
+        <Route path="/profile/:userId" element={<Profile />} />
     </Routes>
   );
 }

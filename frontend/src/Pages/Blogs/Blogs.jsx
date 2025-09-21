@@ -267,44 +267,41 @@ const Blogs = () => {
         }
     ];
 
-    return (
-        <div className="relative min-h-screen bg-black text-white">
-            {/* Background Starfield */}
-            <STARFIELD />
-            
-            {/* Navbar */}
-            <div className="relative z-20">
-                <NAVBAR />
+   return (
+  <div className="relative min-h-screen bg-black text-white flex flex-col">
+    {/* Background Starfield */}
+    <STARFIELD className="absolute inset-0 z-0" />
+
+    {/* Navbar */}
+    <div className="relative z-10">
+      <NAVBAR />
+    </div>
+
+    {/* Main Content */}
+    <div className="relative z-10 flex-1 flex items-start justify-center px-4 py-8 md:py-16">
+      <div className="max-w-6xl w-full text-center">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-2">
+          Our Blogs
+        </h1>
+
+        <p className="text-lg md:text-xl text-gray-300 mb-10">
+          Read the latest updates and insights from our club members.
+        </p>
+
+        {/* Blog List */}
+        <div className="space-y-8 text-left">
+          {blogsData.map((blog) => (
+            <div key={blog.id} className="bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h2 className="text-2xl font-semibold text-white mb-4">{blog.title}</h2>
+              <span className="text-gray-400 mb-4">{`Date: ${blog.date} | ${blog.attendees} people attended | ${blog.location}`}</span>
+              <div className="text-gray-300 mb-4">{blog.content}</div>
+              <p className="text-right text-gray-500">{blog.author}</p>
             </div>
-
-            {/* Main Content */}
-            <div className="flex items-center justify-center z-10 px-4 py-8 md:py-16">
-                <div className="max-w-6xl w-full text-center">
-                    <h1 className="text-4xl mt-20 lg:mt-10 md:text-5xl font-bold leading-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-                        Our Blogs
-                    </h1>
-
-                    <p className="text-lg md:text-xl text-gray-300 mb-10">
-                        Read the latest updates and insights from our club members.
-                    </p>
-
-                    {/* Blog List */}
-                    <div className="space-y-8 text-left mb-2">
-                        {blogsData.map((blog) => (
-                            <div key={blog.id} className="bg-gray-800 p-6 rounded-lg shadow-lg">
-                                <h2 className="text-2xl font-semibold text-white mb-4">{blog.title}</h2>
-                                <span className="text-gray-400 mb-4">{`Date: ${blog.date} | ${blog.attendees} people attended | ${blog.location}`}</span>
-                                <div className="text-gray-300 mb-4">
-                                    {blog.content}
-                                </div>
-                                <p className="text-right text-gray-500">{blog.author}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  </div>
+);
 };
-
 export default Blogs;
