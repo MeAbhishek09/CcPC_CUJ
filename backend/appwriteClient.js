@@ -1,14 +1,10 @@
-import { Client, Databases } from "appwrite";
-import dotenv from "dotenv";
+const { Client, Databases } = require("node-appwrite");
 
-dotenv.config(); // Load .env variables
-
-const client = new Client();
-
-client
-  .setEndpoint(process.env.APPWRITE_ENDPOINT)
-  .setProject(process.env.APPWRITE_PROJECT_ID);
+const client = new Client()
+  .setEndpoint(process.env.APPWRITE_ENDPOINT) // From .env
+  .setProject(process.env.APPWRITE_PROJECT_ID) // From .env
+  .setKey(process.env.APPWRITE_API_KEY);       // From .env
 
 const databases = new Databases(client);
 
-export { client, databases };
+module.exports = { client, databases };

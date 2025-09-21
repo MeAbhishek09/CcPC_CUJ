@@ -1,18 +1,23 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import { getMembers } from "./membersController.js";
+require("dotenv").config(); // Load .env first
 
-dotenv.config(); // Load .env
+const express = require("express");
+const cors = require("cors"); // 👈 install with npm i cors
+const { getMembers } = require("./membersController");
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 5000;
 
-app.get("/api/members", async (req, res) => {
-  const members = await getMembers();
-  res.json(members);
+// Enable CORS for your frontend
+app.use(cors({ origin: "http://localhost:5173" })); 
+
+// Test route
+app.get("/", (req, res) => {
+  res.send("Backend running with Appwrite!");
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Use membersController for fetching members
+app.get("/api/members", getMembers); // 👈 note the /api prefix
+
+app.listen(PORT, () =>
+  console.log(`✅ Server running on http://localhost:${PORT}`)
+);

@@ -7,23 +7,40 @@ import STARFIELD  from "../Starfield";
 
 const Members = () => {
 
-  const [users, setUsers] = useState([
-  { id: "1", name: "Test Member" },
-  { id: "3", name: "Alice" }
-]);
+//   const [users, setUsers] = useState([
+//   { id: "1", name: "Test Member" },
+//   { id: "3", name: "Alice" }
+// ]);
 
-const [alumni, setAlumni] = useState([
-  { id: "3", name: "Bob" },
-  { id: "4", name: "Carol" }
-]);
+// const [alumni, setAlumni] = useState([
+//   { id: "3", name: "Bob" },
+//   { id: "4", name: "Carol" }
+// ]);
 
-  // const [users, setUsers] = useState([]);
-  // const [alumni, setAlumni] = useState([]); 
+  const [users, setUsers] = useState([]);
+  const [alumni, setAlumni] = useState([]); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showAlumni, setShowAlumni] = useState(false);
   const navigate = useNavigate();
   
+  // Fetch data from backend
+  useEffect(() => {
+    setLoading(true);
+    fetch("http://localhost:5000/api/members")
+      .then(res => res.json())
+      .then(data => {
+        setUsers(data.users);
+        setAlumni(data.alumni);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError("Failed to fetch members");
+        setLoading(false);
+      });
+  }, []);
+
+
   // Handle redirection to the selected user's profile page
   const handleClick = (userId) => {
     navigate(`/profile/${userId}`);
@@ -96,7 +113,7 @@ const [alumni, setAlumni] = useState([
                 <h1>
                   Wanna Join CcpC (Registration){" "}
                   <a
-                    href="/registration"
+                    href="/register"
                     className="text-red-500 px-1 hover:text-yellow-500"
                   >
                     Click here!
