@@ -14,27 +14,26 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    const handleLogin = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const userId = userCredential.user.uid;
+      // Create session with Appwrite
+      await account.createEmailSession(email, password);
 
-      const userRef = ref(database, `users/${userId}`);
-      const snapshot = await get(userRef);
+      // Get user details
+      const user = await account.get();
 
-      if (!snapshot.exists()) {
-        await set(userRef, { completeProfile: false });
+      // Check if profile is complete (you can use a custom attribute like "completeProfile")
+      if (!user?.prefs?.completeProfile) {
         navigate("/login/auth/complete-profile");
       } else {
-        const userData = snapshot.val();
-        if (userData.completeProfile === false) {
-          navigate("/login/auth/complete-profile");
-        } else {
-          navigate(`/u/${auth.currentUser.uid}`);
-        }
+        navigate(`/profile/${user.$id}`);
       }
-    } catch (error) {
+    } catch (err) {
+      console.error(err);
       setError("Invalid email or password. Please try again.");
     }
+  }; 
+
   };
 
   return (
@@ -70,6 +69,7 @@ const Login = () => {
         </div>
 
         <button
+        // onClick={() => navigate("/profile")}
           onClick={handleLogin}
           className="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-md hover:from-purple-600 hover:to-blue-500 transition-colors"
         >

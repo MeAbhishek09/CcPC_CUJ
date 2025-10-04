@@ -3,58 +3,75 @@ import React, { useEffect, useState } from "react";
 // import { database } from "../../../firebaseConfig";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import STARFIELD  from "../Starfield";
+// import { getUserProfile, getUserProjects } from "../../Appwrite/database"; 
+import { getUserProfile, getUserProjects } from "../../Appwrite/database"; 
+// import { databases } from "../../Appwrite/appwrite";
 
 const Profile = () => {
-  const [profileData, setProfileData] = useState({});
+ const [profileData, setProfileData] = useState({});
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedDescription, setExpandedDescription] = useState(null);
+  const userId = window.location.pathname.split("/").pop(); // Get userId from URL
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
         const userId = window.location.pathname.split("/").pop();
-        const userRef = ref(database, `users/${userId}`);
-        const snapshot = await get(userRef);
 
-        if (snapshot.exists()) {
-          setProfileData(snapshot.val());
-        } else {
-          setError("Profile not found.");
-        }
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-        setError("An error occurred while fetching the profile.");
+        // Fetch user document
+        const userDoc = await databases.getDocument(
+          process.env.REACT_APP_DB_ID,
+          process.env.REACT_APP_USERS_COLLECTION_ID,
+          userId
+        );
+        setProfileData(userDoc);
+
+        // Fetch projects linked to the user
+        const projectDocs = await databases.listDocuments(
+          process.env.REACT_APP_DB_ID,
+          process.env.REACT_APP_PROJECT_COLLECTION_ID,
+          [ `userId=${userId}` ] // query projects by userId
+        );
+
+        setProjects(projectDocs.documents);
+
+      } catch (err) {
+        console.error(err);
+        setError("Failed to fetch profile or projects.");
       } finally {
         setLoading(false);
       }
     };
 
-    const fetchProjects = async () => {
-      try {
-        const userId = window.location.pathname.split("/").pop();
-        const projectsRef = ref(database, `users/${userId}/projects`);
-        const snapshot = await get(projectsRef);
-
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const projectArray = Object.keys(data).map((key) => ({
-            id: key,
-            ...data[key],
-          }));
-          setProjects(projectArray);
-        } else {
-          console.log("No projects found.");
-        }
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
-    };
-
     fetchProfileData();
-    fetchProjects();
   }, []);
+
+    // const fetchProjects = async () => {
+    //   try {
+    //     const userId = window.location.pathname.split("/").pop();
+    //     const projectsRef = ref(database, `users/${userId}/projects`);
+    //     const snapshot = await get(projectsRef);
+
+    //     if (snapshot.exists()) {
+    //       const data = snapshot.val();
+    //       const projectArray = Object.keys(data).map((key) => ({
+    //         id: key,
+    //         ...data[key],
+    //       }));
+    //       setProjects(projectArray);
+    //     } else {
+    //       console.log("No projects found.");
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching projects:", error);
+    //   }
+    // };
+
+  //   fetchProfileData();
+  //   fetchProjects();
+  // }, []);
 
   const truncateDescription = (description) => {
     return description.length > 150 ? description.slice(0, 150) + "..." : description;
@@ -142,7 +159,7 @@ const Profile = () => {
         </div>
 
         {/* Projects Section */}
-        {/* <div className="mt-8">
+        <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4">Projects</h2>
           {projects.length === 0 ? (
             <p className="text-gray-400">No projects to display.</p>
@@ -189,7 +206,7 @@ const Profile = () => {
               </div>
             ))
           )}
-        </div> */}
+        </div>
       </div>
     </div>
   );

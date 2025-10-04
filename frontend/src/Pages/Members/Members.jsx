@@ -23,29 +23,30 @@ const Members = () => {
   const [error, setError] = useState(null);
   const [showAlumni, setShowAlumni] = useState(false);
   const navigate = useNavigate();
+
+
   
-  // Fetch data from backend
-  useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:5000/api/members")
-      .then(res => res.json())
-      .then(data => {
-        setUsers(data.users);
-        setAlumni(data.alumni);
+ useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const allUsers = await getAllUsers(); // Fetch users from Appwrite
+        // Separate members and alumni
+        setUsers(allUsers.filter((u) => u.isMember && !u.isAlumni));
+        setAlumni(allUsers.filter((u) => u.isAlumni));
+      } catch (err) {
+        console.error(err);
+        setError("Failed to fetch users");
+      } finally {
         setLoading(false);
-      })
-      .catch(err => {
-        setError("Failed to fetch members");
-        setLoading(false);
-      });
+      }
+    };
+    fetchUsers();
   }, []);
 
-
-  // Handle redirection to the selected user's profile page
   const handleClick = (userId) => {
     navigate(`/profile/${userId}`);
   };
-
+  
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-white">
